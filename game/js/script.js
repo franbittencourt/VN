@@ -63,7 +63,7 @@ monogatari.assets ('music', {
 	'mata_ambiente': 'mata_ambiente.mp3',
 	'tensao_silencio': 'tensao_silencio.mp3',
 	'alerta_agogo': 'alerta_agogo.mp3',
-	'memoria_xeque re': 'memoria_xequere.mp3'
+	'memoria_xequere': 'memoria_xequere.mp3'
 });
 
 monogatari.assets ('gallery', {
