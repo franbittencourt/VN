@@ -50,12 +50,12 @@ function setFlag (nome, valor) {
 // em /assets/scenes, /assets/music, /assets/gallery.
 // -------------------------------------------------------------
 monogatari.assets ('scenes', {
-	'forja': 'forja.png',
-	'terreiro': 'terreiro.png',
-	'mata': 'mata.png',
-	'casa': 'casa.png',
-	'clareira_noite': 'clareira_noite.png',
-	'casa_damiana': 'casa_damiana.png'
+	'forja': 'forja.jpg',
+	'terreiro': 'terreiro.jpg',
+	'mata': 'mata.jpg',
+	'casa': 'casa.jpg',
+	'clareira_noite': 'clareira_noite.jpg',
+	'casa_damiana': 'casa_damiana.jpg'
 });
 
 monogatari.assets ('music', {
@@ -67,7 +67,7 @@ monogatari.assets ('music', {
 });
 
 monogatari.assets ('gallery', {
-	'cg_chegada_luzia': 'cg_01_chegada_luzia.png'
+	'cg_chegada_luzia': 'cg_01_chegada_luzia.jpg'
 });
 
 // -------------------------------------------------------------
