@@ -1,0 +1,1 @@
+Coloque aqui os arquivos de characters. Ver /docs/GDD.md seção 8-9 para especificações.

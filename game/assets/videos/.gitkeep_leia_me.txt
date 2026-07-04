@@ -1,0 +1,1 @@
+Coloque aqui os arquivos de videos. Ver /docs/GDD.md seção 8-9 para especificações.
