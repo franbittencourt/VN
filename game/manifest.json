@@ -1,9 +1,9 @@
 {
-	"short_name": "Monogatari",
-	"name": "Monogatari Visual Novel",
-	"background_color": "#F7F7F7",
-	"theme_color": "#F7F7F7",
-	"orientation": "landscape",
+	"short_name": "Nasce Livre",
+	"name": "O Que Nasce Livre",
+	"background_color": "#0d0d0d",
+	"theme_color": "#0d0d0d",
+	"orientation": "any",
 	"display": "fullscreen",
 	"start_url": "index.html",
 	"icons": [

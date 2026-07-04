@@ -67,6 +67,10 @@ Todas em loop, sem vocais, 1–3 min (cf. GDD §9.5).
 ### `memoria_xequere.mp3` — Coda
 > soft gentle melody, xequerê shaker texture, heavy reverb, dreamlike afro-brazilian ambient, no vocals, flashback / memory feeling, slow and tender
 
+### `tema_abertura.mp3` — Tema principal / menu inicial
+Tema da tela-título (`MainScreenMusic`, hoje vazio em `options.js`). É o cartão de visita sonoro do jogo — investimento prioritário do GDD §9.3 (idealmente comissionar percussionista; a geração por IA abaixo serve de rascunho/placeholder). Deve soar lento, digno, contido — não épico de trailer.
+> slow dignified atabaque ritual drums, restrained contained melody, solemn and hopeful, spacious, a single agogô marking time, afro-brazilian, 19th century, no vocals, loopable main theme, respectful and grounded, not bombastic
+
 ---
 
 ## Ordem sugerida

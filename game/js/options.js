@@ -36,6 +36,10 @@ monogatari.settings({
 	'LanguageSelectionScreen': true,
 
 	// Music for the Main Menu.
+	// Quando o tema principal existir, será 'tema_abertura.mp3' (atabaque lento
+	// e digno com melodia contida, cf. GDD §9.3 / prompt em
+	// docs/pipeline_assets_cap1.md). Mantido vazio até o arquivo subir em
+	// assets/music/tema_abertura.mp3.
 	'MainScreenMusic': '',
 
 	// Prefix for the Save Slots in Local Storage.
