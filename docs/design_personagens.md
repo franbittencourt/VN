@@ -95,7 +95,11 @@ Para gerar `tenso`/`suave`, reaproveitar o mesmo prompt do personagem trocando a
 
 ## Checklist de descomentagem dos sprites em `script.js`
 
-Os sprites já estão **declarados** em `monogatari.characters()` (propriedade `sprites`), e os comandos `show character` / `hide character` já estão escritos nas cenas, porém **comentados** com o marcador `// TODO-SPRITE:`. Como estão comentados, não são pré-carregados nem quebram o jogo. Ao subir cada lote de arte, descomentar as linhas correspondentes:
+Os sprites já estão escritos em `monogatari.characters()` (propriedade `sprites`) e os comandos `show character` / `hide character` já estão nas cenas, mas **tudo comentado** com o marcador `// TODO-SPRITE:`.
+
+> **Por que a declaração `sprites:` também fica comentada:** o Monogatari pré-carrega no load da página **todos os sprites declarados** — não só os usados por um `show` ativo. Se deixássemos a declaração ativa sem os arquivos, seriam 21 requisições 404 a cada abertura. Por isso a linha `sprites:` de cada personagem fica comentada até a arte existir.
+
+Ao subir a arte de um personagem, descomentar **(1)** a linha `sprites:` dele em `characters()` **e (2)** os `show/hide character` das cenas abaixo. Testar a cena depois de cada lote:
 
 - [ ] **Cena 1 (Forja):** `bento`, `malaquias` (entrada; `malaquias` → `tenso` em "Raiva entorta"; hide no fim).
 - [ ] **Cena 2 (Terreiro):** `firmina`, `bento` (entrada; hide no fim).

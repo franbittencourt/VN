@@ -10,40 +10,42 @@
 // PERSONAGENS
 // Cor de cada um usada nas caixas de diálogo.
 // -------------------------------------------------------------
-// Sprites declarados por personagem (cf. docs/design_personagens.md).
-// Sem 'directory', cada arquivo resolve para assets/characters/<arquivo>.
-// Declarar os sprites NÃO os pré-carrega — o preload só busca os que forem
-// referenciados por um comando 'show character' ATIVO no script. Como esses
-// comandos estão comentados (// TODO-SPRITE), nada é baixado ainda e o jogo
-// não quebra na ausência dos arquivos.
+// Sprites por personagem (cf. docs/design_personagens.md).
+// IMPORTANTE: o Monogatari PRÉ-CARREGA todos os sprites *declarados* já no
+// load da página (não só os usados por um 'show character' ativo). Por isso a
+// linha `sprites:` de cada personagem fica COMENTADA com // TODO-SPRITE — assim
+// nenhum arquivo inexistente é baixado e o jogo não gera 404s. Ao subir a arte
+// de um personagem, descomentar a linha sprites dele E os 'show character' das
+// cenas (cf. checklist em docs/design_personagens.md). Sem 'directory', cada
+// arquivo resolve para assets/characters/<arquivo>.
 monogatari.characters ({
 	'bento': {
 		name: 'Bento', color: '#e8d9b5',
-		sprites: { neutro: 'bento_neutro.png', tenso: 'bento_tenso.png', suave: 'bento_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'bento_neutro.png', tenso: 'bento_tenso.png', suave: 'bento_suave.png' }
 	},
 	'malaquias': {                                          // verde de Ogum
 		name: 'Malaquias', color: '#4a7c3a',
-		sprites: { neutro: 'malaquias_neutro.png', tenso: 'malaquias_tenso.png', suave: 'malaquias_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'malaquias_neutro.png', tenso: 'malaquias_tenso.png', suave: 'malaquias_suave.png' }
 	},
 	'firmina': {
 		name: 'Firmina', color: '#d98e3a',
-		sprites: { neutro: 'firmina_neutro.png', tenso: 'firmina_tenso.png', suave: 'firmina_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'firmina_neutro.png', tenso: 'firmina_tenso.png', suave: 'firmina_suave.png' }
 	},
 	'caetano': {                                            // azul-verde de Oxóssi
 		name: 'Caetano', color: '#3a6b7c',
-		sprites: { neutro: 'caetano_neutro.png', tenso: 'caetano_tenso.png', suave: 'caetano_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'caetano_neutro.png', tenso: 'caetano_tenso.png', suave: 'caetano_suave.png' }
 	},
 	'tiao': {
 		name: 'Tião', color: '#8a7355',
-		sprites: { neutro: 'tiao_neutro.png', tenso: 'tiao_tenso.png', suave: 'tiao_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'tiao_neutro.png', tenso: 'tiao_tenso.png', suave: 'tiao_suave.png' }
 	},
 	'luzia': {                                              // azul-claro de Iemanjá
 		name: 'Luzia', color: '#6fa8d0',
-		sprites: { neutro: 'luzia_neutro.png', tenso: 'luzia_tenso.png', suave: 'luzia_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'luzia_neutro.png', tenso: 'luzia_tenso.png', suave: 'luzia_suave.png' }
 	},
 	'damiana': {
 		name: 'Vó Damiana', color: '#c9c9c9',
-		sprites: { neutro: 'damiana_neutro.png', tenso: 'damiana_tenso.png', suave: 'damiana_suave.png' }
+		// TODO-SPRITE: sprites: { neutro: 'damiana_neutro.png', tenso: 'damiana_tenso.png', suave: 'damiana_suave.png' }
 	},
 	'narracao': { name: '', color: '#a89a7f' }              // voz interna de Bento (sem sprite)
 });

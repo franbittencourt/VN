@@ -54,7 +54,8 @@ body {
    arquivo assets/ui/capa.png não existir. */
 [data-screen="main"] {
 	background-color: var(--onl-preto);
-	background-image: url('assets/ui/capa.png');
+	/* Caminho relativo AO ARQUIVO CSS (style/), por isso o ../ */
+	background-image: url('../assets/ui/capa.png');
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -149,24 +150,47 @@ body {
  * ===========================
 **/
 
-/* Choice Buttons style */
+/* Choice Buttons style — mesmo tratamento dos botões do menu principal.
+   NOTA: nenhum indicador visual de afinidade dos orixás aqui — a afinidade
+   é oculta por design (CLAUDE.md, regra 2). As escolhas parecem todas iguais. */
 [data-component="choice-container"] button {
-
+	font-family: var(--onl-serif);
+	letter-spacing: 0.04em;
+	color: var(--onl-palha);
+	background-color: rgba(13, 13, 13, 0.72);
+	border: 1px solid var(--onl-borda);
+	border-radius: 2px;
+	padding: 0.7em 1.3em;
+	margin: 0.35em auto;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Choice Button Style on Hover */
-[data-component="choice-container"] button:hover {
-
+[data-component="choice-container"] button:hover,
+[data-component="choice-container"] button:focus {
+	background-color: var(--onl-palha);
+	color: var(--onl-preto);
+	border-color: var(--onl-palha);
+	outline: none;
 }
 
-/* Text Box styling */
+/* Text Box styling — caixa de diálogo em preto translúcido com fio superior
+   dourado-palha, remetendo à barra de uma matriz de xilogravura. */
 [data-component="text-box"] {
-
+	background-color: rgba(13, 13, 13, 0.85);
+	border-top: 1px solid var(--onl-palha);
+	color: #f2ece0;
+	font-family: var(--onl-serif);
+	line-height: 1.5;
 }
 
-/* Character Name Style */
+/* Character Name Style — serifada, na cor dourado-palha. A cor ritual de
+   cada personagem já vem do campo `color` em monogatari.characters(). */
 [data-ui="who"] {
-
+	font-family: var(--onl-serif);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* Style for Centered Text */
