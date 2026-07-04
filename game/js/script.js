@@ -10,15 +10,42 @@
 // PERSONAGENS
 // Cor de cada um usada nas caixas de diálogo.
 // -------------------------------------------------------------
+// Sprites declarados por personagem (cf. docs/design_personagens.md).
+// Sem 'directory', cada arquivo resolve para assets/characters/<arquivo>.
+// Declarar os sprites NÃO os pré-carrega — o preload só busca os que forem
+// referenciados por um comando 'show character' ATIVO no script. Como esses
+// comandos estão comentados (// TODO-SPRITE), nada é baixado ainda e o jogo
+// não quebra na ausência dos arquivos.
 monogatari.characters ({
-	'bento': { name: 'Bento', color: '#e8d9b5' },
-	'malaquias': { name: 'Malaquias', color: '#4a7c3a' },   // verde de Ogum
-	'firmina': { name: 'Firmina', color: '#d98e3a' },
-	'caetano': { name: 'Caetano', color: '#3a6b7c' },       // azul-verde de Oxóssi
-	'tiao': { name: 'Tião', color: '#8a7355' },
-	'luzia': { name: 'Luzia', color: '#6fa8d0' },           // azul-claro de Iemanjá
-	'damiana': { name: 'Vó Damiana', color: '#c9c9c9' },
-	'narracao': { name: '', color: '#a89a7f' }              // voz interna de Bento
+	'bento': {
+		name: 'Bento', color: '#e8d9b5',
+		sprites: { neutro: 'bento_neutro.png', tenso: 'bento_tenso.png', suave: 'bento_suave.png' }
+	},
+	'malaquias': {                                          // verde de Ogum
+		name: 'Malaquias', color: '#4a7c3a',
+		sprites: { neutro: 'malaquias_neutro.png', tenso: 'malaquias_tenso.png', suave: 'malaquias_suave.png' }
+	},
+	'firmina': {
+		name: 'Firmina', color: '#d98e3a',
+		sprites: { neutro: 'firmina_neutro.png', tenso: 'firmina_tenso.png', suave: 'firmina_suave.png' }
+	},
+	'caetano': {                                            // azul-verde de Oxóssi
+		name: 'Caetano', color: '#3a6b7c',
+		sprites: { neutro: 'caetano_neutro.png', tenso: 'caetano_tenso.png', suave: 'caetano_suave.png' }
+	},
+	'tiao': {
+		name: 'Tião', color: '#8a7355',
+		sprites: { neutro: 'tiao_neutro.png', tenso: 'tiao_tenso.png', suave: 'tiao_suave.png' }
+	},
+	'luzia': {                                              // azul-claro de Iemanjá
+		name: 'Luzia', color: '#6fa8d0',
+		sprites: { neutro: 'luzia_neutro.png', tenso: 'luzia_tenso.png', suave: 'luzia_suave.png' }
+	},
+	'damiana': {
+		name: 'Vó Damiana', color: '#c9c9c9',
+		sprites: { neutro: 'damiana_neutro.png', tenso: 'damiana_tenso.png', suave: 'damiana_suave.png' }
+	},
+	'narracao': { name: '', color: '#a89a7f' }              // voz interna de Bento (sem sprite)
 });
 
 // -------------------------------------------------------------
@@ -85,10 +112,13 @@ monogatari.script ({
 	'Cap1_Cena1_Forja': [
 		'show scene forja with fadeIn',
 		'play music quilombo_dia with loop',
+		// TODO-SPRITE: 'show character malaquias neutro at center with fadeIn',
+		// TODO-SPRITE: 'show character bento neutro at right with fadeIn',
 
 		'narracao Seu Malaquias diz que o ferro conta a verdade. Que madeira aceita prego calado, mas ferro, não — ferro só vira alguma coisa se passar pelo fogo. Ele diz isso toda vez que eu erro a batida. Ele diz isso muito.',
 		'malaquias De novo.',
 		'narracao A enxada nem parece enxada ainda. Parece o que eu sou: um pedaço de coisa esperando dar forma.',
+		// TODO-SPRITE: 'show character malaquias tenso at center',   // vira: reprova a batida com raiva
 		'malaquias Você bate com raiva. Raiva entorta.',
 		'bento Eu bato do jeito que o senhor ensinou.',
 		'malaquias Ensinei a força. Não ensinei a pressa. No Paraguai, o cabo dizia: soldado apressado morre descansado.',
@@ -131,6 +161,8 @@ monogatari.script ({
 	],
 
 	'Cap1_Cena1_Fim': [
+		// TODO-SPRITE: 'hide character malaquias with fadeOut',
+		// TODO-SPRITE: 'hide character bento with fadeOut',
 		'narracao Lá fora o galo cantou atrasado, como sempre. No quilombo do Passo da Pedra até o galo tem preguiça. Dezesseis anos que eu vivo aqui. Dezesseis anos que meu pai me trouxe no escuro, enrolado num pano, antes que eu soubesse que existia mundo. Livre, dizem. Nasci livre. Tá escrito numa lei que eu nunca vi, guardada numa cidade que eu não conheço, assinada por gente que não sabe meu nome.',
 		'jump Cap1_Cena2_Terreiro'
 	],
@@ -140,6 +172,8 @@ monogatari.script ({
 	// ===========================================================
 	'Cap1_Cena2_Terreiro': [
 		'show scene terreiro with fadeIn',
+		// TODO-SPRITE: 'show character firmina neutro at left with fadeIn',
+		// TODO-SPRITE: 'show character bento neutro at right with fadeIn',
 
 		'firmina Deixou o velho do Paraguai te fazer de bigorna de novo?',
 		'bento Aprendiz. A palavra é aprendiz.',
@@ -167,12 +201,16 @@ monogatari.script ({
 	'Cap1_Terreiro_Curioso': [
 		function () { return setFlag ('curiosoDoSagrado', true); },
 		'firmina Tu? Procurando a Vó? O mundo tá acabando mesmo.',
+		// TODO-SPRITE: 'hide character firmina with fadeOut',
+		// TODO-SPRITE: 'hide character bento with fadeOut',
 		'jump Cap1_Cena3_Mata'
 	],
 
 	'Cap1_Terreiro_Adia': [
 		function () { return setFlag ('adiaSagrado', true); },
 		'firmina Depois não existe, Bento. Existe agora e existe tarde demais.',
+		// TODO-SPRITE: 'hide character firmina with fadeOut',
+		// TODO-SPRITE: 'hide character bento with fadeOut',
 		'jump Cap1_Cena3_Mata'
 	],
 
@@ -182,6 +220,8 @@ monogatari.script ({
 	'Cap1_Cena3_Mata': [
 		'show scene mata with fadeIn',
 		'play music mata_ambiente with loop fade 2',
+		// TODO-SPRITE: 'show character caetano neutro at center with fadeIn',
+		// TODO-SPRITE: 'show character bento neutro at right with fadeIn',
 
 		'narracao Toda semana Caetano me leva mato adentro. Meu pai pediu a ele, anos atrás: "ensina o menino a não se perder". Caetano ensinou o contrário — a se perder de propósito, que é a única forma de ninguém te achar.',
 		'caetano (agachado, mão no chão) Olha.',
@@ -191,6 +231,7 @@ monogatari.script ({
 		'caetano Ainda errada.',
 		'narracao Ele espera. Caetano espera como a mata espera — sem pressa e sem dó.',
 		'bento ...Pra onde vai?',
+		// TODO-SPRITE: 'show character caetano tenso at center',   // "o rosto fecha" ao reconhecer o rastro
 		'caetano (quase sorri) Agora sim. Bota rasgada. Passada curta, funda no calcanhar. Gente cansada, carregando o próprio peso como se fosse castigo. Veio da banda da Fazenda Boa Vista. Vai... vai pra cá.',
 		'bento Pra cá? Alguém fugido?',
 		'caetano Ou alguém atrás de fugido. Bota de sinhá não rasga. Bota de capataz, também não. Volta pra casa antes do escuro. E Bento —',
@@ -198,6 +239,8 @@ monogatari.script ({
 		'caetano Rastro a gente conta pra quem precisa saber. Não pra quem gosta de ouvir.',
 		function () { return afinidade ('oxossi', 1); },
 		'narracao No caminho de volta a mata inteira parecia prender a respiração. Ou era só eu.',
+		// TODO-SPRITE: 'hide character caetano with fadeOut',
+		// TODO-SPRITE: 'hide character bento with fadeOut',
 		'jump Cap1_Cena4_Casa'
 	],
 
@@ -207,6 +250,8 @@ monogatari.script ({
 	'Cap1_Cena4_Casa': [
 		'show scene casa with fadeIn',
 		'play music tensao_silencio with loop fade 3',
+		// TODO-SPRITE: 'show character tiao neutro at center with fadeIn',
+		// TODO-SPRITE: 'show character bento neutro at right with fadeIn',
 
 		'tiao Telhado da Nazária. Amanhã. Duas mãos rendem mais que uma.',
 		'bento Tá.',
@@ -234,10 +279,13 @@ monogatari.script ({
 		function () { return setFlag ('paiSabe', true); },
 		'bento Caetano achou rastro. Vindo da Boa Vista. Gente cansada, ele disse.',
 		'narracao (Tião para de comer. O silêncio dura três batidas do fogo.)',
+		// TODO-SPRITE: 'show character tiao tenso at center',   // o nome da fazenda o atinge
 		'tiao (baixo) Da Boa Vista.',
 		'bento O senhor conhece lá?',
 		'tiao (volta a comer, mais devagar) Conheci. Tranca a porta hoje.',
 		'narracao Foi tudo que ele disse. Mas a mão dele tremeu no prato, e meu pai tem mão de carpinteiro — mão que não treme nem quando a madeira racha.',
+		// TODO-SPRITE: 'hide character tiao with fadeOut',
+		// TODO-SPRITE: 'hide character bento with fadeOut',
 		'jump Cap1_Cena5_Noite'
 	],
 
@@ -247,6 +295,8 @@ monogatari.script ({
 		'bento Longe não. O de sempre.',
 		'tiao (assente devagar) Hm.',
 		'narracao Caetano disse: rastro se conta pra quem precisa saber. Meu pai precisava? Eu não sabia. E quando eu não sei, eu guardo. Guardar é o meu jeito de não errar — ou de errar sozinho, que dói menos.',
+		// TODO-SPRITE: 'hide character tiao with fadeOut',
+		// TODO-SPRITE: 'hide character bento with fadeOut',
 		'jump Cap1_Cena5_Noite'
 	],
 
@@ -256,19 +306,24 @@ monogatari.script ({
 	'Cap1_Cena5_Noite': [
 		'show scene clareira_noite with fadeIn',
 		'play music alerta_agogo with loop fade 1',
+		// TODO-SPRITE: 'show character malaquias tenso at center with fadeIn',   // voz de guerra
 
 		'narracao Os cachorros começaram primeiro. Depois o sino de pau que o Malaquias inventou — três toques, espera, três toques. Eu nunca tinha ouvido os três toques fora de treino. Ninguém tinha.',
 		'malaquias (voz de guerra, baixa e total) Ninguém acende mais tocha. Mulher e criança pro paiol. Homem que sabe segurar cabo, comigo.',
 		'narracao E então a mata se abriu.',
 
+		// TODO-SPRITE: 'hide character malaquias',   // limpa a cena para a CG de chegada
 		'show image cg_chegada_luzia with fadeIn',
 		// CG sugerida: silhueta de mulher rompendo a mata à noite, pano azul-claro na cabeça.
 		// Estilo xilogravura, acento de cor de Iemanjá — cf. GDD 8.1.
 
 		'narracao Uma mulher. Descalça de um pé só. O braço esquerdo pintado de escuro que não era tinta. Ela atravessou a clareira como quem atravessa um rio — lutando contra uma correnteza que ninguém mais via — e caiu de joelhos no meio de todos nós.',
+		// TODO-SPRITE: 'show character luzia tenso at center with fadeIn',   // ajoelhada, ferida
+		// TODO-SPRITE: 'show character caetano neutro at left',
 		'caetano (chegando por trás dela, arco ainda na mão) Ela veio sozinha. Por ora.',
 		'narracao A mulher levantou a cabeça. Procurou rosto por rosto, tocha por tocha, com uma fome que dava medo de olhar. E parou em mim.',
 		'luzia (um fio de voz) ...Cresceu.',
+		// TODO-SPRITE: 'show character tiao tenso at right with fadeIn',   // sai do escuro e diz o nome
 		'tiao Luzia.',
 		'narracao A mulher que me pariu num chão de fazenda. A mulher que me entregou pro escuro pra que o escuro me salvasse. Dezesseis anos de distância caíram ajoelhados na minha frente, sangrando pelo braço, me olhando como se eu fosse a última porta do mundo.',
 
@@ -322,15 +377,21 @@ monogatari.script ({
 	// CODA — fechamento do capítulo
 	// ===========================================================
 	'Cap1_Coda': [
+		// TODO-SPRITE: 'hide character luzia',    // convergência das 3 escolhas da noite
+		// TODO-SPRITE: 'hide character caetano',
+		// TODO-SPRITE: 'hide character tiao',
 		'show scene casa_damiana with fadeIn',
 		'play music memoria_xequere with loop fade 3',
+		// TODO-SPRITE: 'show character damiana neutro at center with fadeIn',
 
 		'narracao Deixaram Luzia com a Vó. Da porta, eu via as mãos velhas trabalhando ervas no pilão, e ouvi — baixinho, no meio das rezas que eu não entendia — a Vó falar como quem fala com a noite:',
 		'damiana (sem se virar) Menino.',
 		'bento ...Senhora.',
+		// TODO-SPRITE: 'show character damiana suave at center',   // vira; os olhos vivos na luz da vela
 		'damiana O que a mata trouxe hoje não foi tua mãe, não. (vira; os olhos vivos na luz da vela) Tua mãe é o começo. O que a mata trouxe... foi a pergunta. (volta ao pilão) Dorme. Amanhã cedo, vem. Os búzios já sabem teu nome faz tempo. Tá na hora de tu saber o deles.',
 		'narracao Eu não dormi. Do lado de fora, o quilombo inteiro fingia dormir de olho aberto. E longe, na banda da Boa Vista, um cachorro que não era nosso latiu três vezes.',
 
+		// TODO-SPRITE: 'hide character damiana with fadeOut',
 		'show scene #000000 with fadeIn 3',
 		'centered CAPÍTULO 1 — FIM',
 		'end'
