@@ -13,28 +13,35 @@
 
 /**
  * ===========================
+ * Paleta — "O Que Nasce Livre"
+ * Identidade xilogravura P&B (GDD §8.1). Cores rituais dos orixás
+ * usadas com parcimônia; NUNCA como indicador de afinidade na UI.
+ * ===========================
+**/
+:root {
+	--onl-preto: #0d0d0d;        /* fundo base / caixa de diálogo */
+	--onl-palha: #e8d9b5;        /* dourado-palha — cor de Bento, destaques e hover */
+	--onl-palha-suave: rgba(232, 217, 181, 0.75);
+	--onl-borda: rgba(232, 217, 181, 0.55);
+
+	/* Cores rituais (referência; uso pontual, não na UI de jogo) */
+	--onl-ogum: #4a7c3a;         /* verde */
+	--onl-oxossi: #3a6b7c;       /* azul-verde */
+	--onl-iemanja: #6fa8d0;      /* azul-claro */
+	--onl-exu: #8c2f2f;          /* vermelho */
+
+	--onl-serif: Georgia, 'Times New Roman', 'Noto Serif', serif;
+}
+
+/**
+ * ===========================
  * General Styling
  * ===========================
 **/
 
 /* General Style */
 body {
-
-}
-
-/* Simple Button styles*/
-button {
-
-}
-
-/* Simple Button Style on Hover */
-button:hover {
-
-}
-
-/* General Styling for Menu Screens */
-[data-screen] {
-
+	background-color: var(--onl-preto);
 }
 
 /**
@@ -43,14 +50,71 @@ button:hover {
  * ===========================
 **/
 
-/* Main Menu Styling */
+/* Main Menu Styling — capa em xilogravura, fallback escuro enquanto o
+   arquivo assets/ui/capa.png não existir. */
 [data-screen="main"] {
-
+	background-color: var(--onl-preto);
+	background-image: url('assets/ui/capa.png');
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
 }
 
-/* Main Menu Buttons Styling */
-[data-screen="main"] button {
+/* Título do jogo sobreposto à capa (injetado no index.html, pois o
+   <main-menu> do Monogatari só renderiza botões, não o nome do jogo). */
+[data-screen="main"] [data-content="game-title"] {
+	position: absolute;
+	top: 8%;
+	left: 0;
+	right: 0;
+	text-align: center;
+	pointer-events: none;
+	padding: 0 1rem;
+}
 
+[data-screen="main"] [data-content="game-title"] h1 {
+	font-family: var(--onl-serif);
+	font-weight: 700;
+	color: var(--onl-palha);
+	letter-spacing: 0.08em;
+	font-size: clamp(1.8rem, 6vw, 3.4rem);
+	margin: 0;
+	text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9), 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+[data-screen="main"] [data-content="game-title"] p {
+	font-family: var(--onl-serif);
+	font-style: italic;
+	color: var(--onl-palha-suave);
+	font-size: clamp(0.8rem, 2.4vw, 1.1rem);
+	letter-spacing: 0.14em;
+	margin: 0.4rem 0 0;
+	text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Main Menu Buttons Styling — fundo translúcido escuro, borda fina clara,
+   serifada, hover dourado-palha. */
+[data-screen="main"] [data-component="main-menu"] button,
+[data-screen="main"] menu[data-content] button {
+	font-family: var(--onl-serif);
+	letter-spacing: 0.06em;
+	color: var(--onl-palha);
+	background-color: rgba(13, 13, 13, 0.62);
+	border: 1px solid var(--onl-borda);
+	border-radius: 2px;
+	padding: 0.6em 1.4em;
+	margin: 0.3em auto;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-screen="main"] [data-component="main-menu"] button:hover,
+[data-screen="main"] [data-component="main-menu"] button:focus,
+[data-screen="main"] menu[data-content] button:hover,
+[data-screen="main"] menu[data-content] button:focus {
+	background-color: var(--onl-palha);
+	color: var(--onl-preto);
+	border-color: var(--onl-palha);
+	outline: none;
 }
 
 /**
