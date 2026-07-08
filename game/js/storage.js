@@ -21,12 +21,27 @@ monogatari.storage ({
 	// Flags narrativas — registram decisões para leitura futura
 	// (ex: Ato 2 e 3 verificam essas flags para variar diálogos).
 	flags: {
+		// —— Capítulo 1 ——
 		curiosoDoSagrado: false,
 		adiaSagrado: false,
 		paiSabe: false,
 		paiNaoSabe: false,
 		abraco: false,
 		socorroPrimeiro: false,
-		congelou: false
+		congelou: false,
+
+		// —— Capítulo 2 (cf. docs/enredo_cap2.md §6) ——
+		perguntouOrigem: false,     // Cena 1: perguntou da fazenda/origem
+		perguntouAmeaca: false,     // Cena 1: mediu a ameaça de frente
+		luziaGuardado: false,       // Cena 1: guardou as perguntas
+		diaComMalaquias: false,     // Cena 2: dia na paliçada/forja
+		diaComCaetano: false,       // Cena 2: dia lendo a mata
+		vigiaNoturna: false,        // Cena 3a: ficou de vigia
+		naoVigiou: false,           // Cena 3a: recolheu
+		defendeuFirmina: false,     // Cena 3b: tomou o lado dela
+		apoiouDisciplina: false,    // Cena 3b: deu razão a Malaquias
+		absteveVigilia: false,      // Cena 3b: ficou na fresta
+		banhoAceito: false,         // Cena 5: aceitou o banho de folhas
+		banhoAdiado: false          // Cena 5: adiou a porta espiritual
 	}
 });

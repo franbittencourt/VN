@@ -1,9 +1,9 @@
 /* global monogatari */
 
 // =============================================================
-// "O QUE NASCE LIVRE" — Capítulo 1: "O Que a Mata Trouxe"
-// Versão expandida (~3k palavras). Estrutura de escolhas e
-// afinidades idêntica à anterior — só a prosa foi aprofundada.
+// "O QUE NASCE LIVRE"
+//   Capítulo 1: "O Que a Mata Trouxe" (expandido, ~3k palavras)
+//   Capítulo 2: "O Que Não Seca" (docs/roteiro_cap2.md)
 // Ver /docs/GDD.md, ramificacoes_narrativas.md e biblia_personagens.md
 // =============================================================
 
@@ -426,6 +426,465 @@ monogatari.script ({
 		// TODO-SPRITE: 'hide character damiana with fadeOut',
 		'show scene #000000 with fadeIn 3',
 		'centered CAPÍTULO 1 — FIM',
+		'jump Cap2_Abertura'
+	],
+
+	// ===========================================================
+	// ===========================================================
+	//  CAPÍTULO 2 — "O QUE NÃO SECA"
+	//  Roteiro: docs/roteiro_cap2.md · Estrutura: docs/enredo_cap2.md
+	//  Ato 1, capítulo do meio. Só soft branches: move afinidade
+	//  (oculta) e flags; lê o estado do cap. 1 via Conditional.
+	// ===========================================================
+	// ===========================================================
+
+	'Cap2_Abertura': [
+		'centered CAPÍTULO 2 — "O QUE NÃO SECA"',
+		'jump Cap2_Cena1_CasaDaVo'
+	],
+
+	// ===========================================================
+	// CENA 1 — A CASA DA VÓ (manhã seguinte)
+	// ===========================================================
+	'Cap2_Cena1_CasaDaVo': [
+		'show scene casa_damiana with fadeIn',
+		'play music memoria_xequere with loop fade 2',
+		// TODO-SPRITE: 'show character damiana neutro at center with fadeIn',
+
+		'narracao Eu não dormi, e a manhã veio me cobrar. A casa da Vó Damiana de dia é outra casa: o que de noite era sombra e reza, de manhã é folha pendurada, pote de barro, cheiro verde de coisa macerada. Só o pilão é o mesmo — o pilão e as mãos.',
+
+		// Variação: como Bento chega (flags do cap. 1, cena do terreiro)
+		{
+			'Conditional': {
+				'Condition': function () {
+					return monogatari.storage ().flags.curiosoDoSagrado === true;
+				},
+				'True': 'jump Cap2_Cena1_ChegadaCurioso',
+				'False': 'jump Cap2_Cena1_ChegadaAdiou'
+			}
+		}
+	],
+
+	'Cap2_Cena1_ChegadaCurioso': [
+		'damiana (sem se virar) Veio antes de eu mandar. (ri curto, no meio da frase grave, como só ela) Ainda não sei se isso é bom sinal ou se é pressa. Senta, menino.',
+		'jump Cap2_Cena1_Reencontro'
+	],
+
+	'Cap2_Cena1_ChegadaAdiou': [
+		'damiana (sem se virar) Chegou o "depois" do menino. (ri curto) A Firmina avisou que tu ia dizer isso. Senta. O depois senta também.',
+		'jump Cap2_Cena1_Reencontro'
+	],
+
+	'Cap2_Cena1_Reencontro': [
+		// TODO-SPRITE: 'show character luzia neutro at left with fadeIn',
+		'narracao Luzia estava sentada na esteira, o braço esquerdo envolto em pano com cheiro de folha amassada. À luz do dia ela era menor do que a mulher que rasgou a mata ontem. E maior também. Não sei explicar as duas coisas ao mesmo tempo, mas eram verdade juntas.',
+
+		// Variação: tom do reencontro (escolha da noite do cap. 1)
+		{
+			'Conditional': {
+				'Condition': function () {
+					const f = monogatari.storage ().flags;
+					if (f.abraco) { return 'abraco'; }
+					if (f.socorroPrimeiro) { return 'socorro'; }
+					return 'congelou';
+				},
+				'abraco': 'jump Cap2_Cena1_TomAbraco',
+				'socorro': 'jump Cap2_Cena1_TomSocorro',
+				'congelou': 'jump Cap2_Cena1_TomCongelou'
+			}
+		}
+	],
+
+	'Cap2_Cena1_TomAbraco': [
+		'narracao Ela me olhou como quem ainda estava no meio do abraço de ontem — e eu não sabia onde pôr as mãos, porque intimidade dada rápido demais é roupa de outro: serve, mas não assenta.',
+		'jump Cap2_Cena1_Folhas'
+	],
+
+	'Cap2_Cena1_TomSocorro': [
+		'narracao Ela me olhou e quase sorriu.',
+		'luzia (baixo, pra Vó, como quem apresenta) O menino que gritou.',
+		'narracao Tinha respeito naquilo. Eu não sabia que respeito também podia doer.',
+		'jump Cap2_Cena1_Folhas'
+	],
+
+	'Cap2_Cena1_TomCongelou': [
+		'narracao Eu não conseguia olhar pra ela. Ontem eu virei pedra na frente do quilombo inteiro, e a pedra ainda estava aqui dentro, pesando. Ela não cobrou. Só disse, pra ninguém:',
+		'luzia Água não força porta.',
+		'narracao E voltou a olhar o pano do braço.',
+		'jump Cap2_Cena1_Folhas'
+	],
+
+	'Cap2_Cena1_Folhas': [
+		'damiana (trabalhando o pilão, nomeando sem olhar) Essa aqui fecha o corte. Essa tira o quente do sangue. Essa é pra dormir sem sonho ruim — essa tu vai me agradecer depois.',
+		'damiana (pausa; me olha por cima) Tu não dormiu. Corpo que não dorme carrega a noite dos outros. De quem é a noite que tu tá carregando, menino?',
+		'narracao Eu não respondi. Ela não esperava resposta — a Vó pergunta pra plantar, não pra colher. Voltou ao pilão e disse, como quem fala do tempo:',
+		'damiana De tarde eu apronto um banho de folha. Pra ela — (o queixo aponta Luzia) — e pra quem mais precisar lavar o susto. Susto que não se lava, cria raiz.',
+
+		{
+			'Choice': {
+				'Dialog': 'bento (Ela está aqui. Viva. Na minha frente. E eu com dezesseis anos de pergunta entalada.)',
+				'Origem': {
+					'Text': 'Como era lá? A fazenda… eu.',
+					'Do': 'jump Cap2_Cena1_PerguntaOrigem'
+				},
+				'Ameaca': {
+					'Text': 'Quem vem atrás da senhora? Quantos?',
+					'Do': 'jump Cap2_Cena1_PerguntaAmeaca'
+				},
+				'Calar': {
+					'Text': '(Não perguntar. Olhar as mãos da Vó no pilão.)',
+					'Do': 'jump Cap2_Cena1_Guardado'
+				}
+			}
+		}
+	],
+
+	'Cap2_Cena1_PerguntaOrigem': [
+		function () { return afinidade ('iemanja', 1); },
+		function () { return setFlag ('perguntouOrigem', true); },
+		'luzia (demora; fala baixo, em imagens) Era um lugar onde os dias não eram da gente. Nem os filhos.',
+		'luzia (olha o próprio braço) Tu tinha um cheiro de fubá quando nasceu. Isso era meu. Isso eu trouxe.',
+		'narracao Dezesseis anos de perguntas e a primeira resposta era um cheiro. Achei pouco. Achei tudo. As duas coisas, juntas, de novo.',
+		'jump Cap2_Cena2_Terreiro'
+	],
+
+	'Cap2_Cena1_PerguntaAmeaca': [
+		function () { return afinidade ('ogum', 1); },
+		function () { return setFlag ('perguntouAmeaca', true); },
+		'luzia (o rosto muda; não de medo — de conta feita) O feitor da Boa Vista. E os que ele pagar.',
+		'luzia Não é o número que importa, meu... (não termina a palavra) — o que importa é que homem pago cansa. Quem corre por amor, não.',
+		'narracao Eu guardei isso do jeito que o Malaquias guarda ferramenta: sabendo que ia precisar.',
+		'jump Cap2_Cena2_Terreiro'
+	],
+
+	'Cap2_Cena1_Guardado': [
+		function () { return afinidade ('exu', 1); },
+		function () { return setFlag ('luziaGuardado', true); },
+		'narracao Tinha pergunta demais em mim, e quando é assim, nenhuma sai na frente. Fiquei olhando o pilão socar.',
+		'narracao A Vó riu baixinho no meio de uma reza, como se o meu silêncio tivesse dito a pergunta inteira. Talvez tenha.',
+		'jump Cap2_Cena2_Terreiro'
+	],
+
+	// ===========================================================
+	// CENA 2 — O TERREIRO: OS MENTORES DIVERGEM
+	// ===========================================================
+	'Cap2_Cena2_Terreiro': [
+		// TODO-SPRITE: 'hide character damiana with fadeOut',
+		// TODO-SPRITE: 'hide character luzia with fadeOut',
+		'show scene terreiro with fadeIn',
+		'play music quilombo_dia with loop fade 2',
+		// TODO-SPRITE: 'show character malaquias tenso at left with fadeIn',
+		// TODO-SPRITE: 'show character caetano neutro at right with fadeIn',
+
+		'narracao No terreiro, o quilombo processava a noite do jeito que sabia: trabalhando mais alto que o medo. Mas tinha uma roda no meio, e no meio da roda, os dois velhos que nunca concordam.',
+		'malaquias Paliçada no vão do leste. Estaca dupla. E vigília em turno, começando hoje. (bate o punho na palma) Quem entrega um, entrega todos. Então ninguém se entrega — e a gente se apronta.',
+		'caetano Aprontar pra quê, se não sabe de onde vem? (agachado, desenhando no chão com um graveto) Parede não serve de nada se tu não sabe de que lado vem o vento. Primeiro se sabe. Depois se apronta.',
+		'malaquias No Paraguai, quem esperou saber morreu sabendo.',
+		'caetano (sem levantar a voz) E quem atirou no escuro acertou o próprio irmão. Tu me contou essa, Malaquias. Numa noite dessas.',
+		'narracao Silêncio de martelo suspenso. Os dois se respeitam do jeito que duas árvores velhas se respeitam: sem se mover, dividindo o mesmo chão. E o pior é que nenhum dos dois estava errado. Eu ia aprender isso do jeito difícil, esse ano inteiro: gente grande erra menos por mentira e mais por acertar só a metade.',
+		'caetano (levanta; mostra o que o graveto cercava no chão) Capim deitado atrás da pedreira. Cheiro de fumo de corda. Alguém rondou a madrugada, ficou um tempo olhando, e voltou pra donde veio. Não era bicho. Bicho não fuma.',
+		'narracao O cachorro estranho de ontem tinha virado gente. E gente que olha de longe e vai embora é gente que volta acompanhada.',
+
+		{
+			'Choice': {
+				'Dialog': 'bento (Os dois vão precisar de braço hoje. Eu só tenho dois.)',
+				'Malaquias': {
+					'Text': 'Ajudar Malaquias na paliçada.',
+					'Do': 'jump Cap2_Dia_Malaquias'
+				},
+				'Caetano': {
+					'Text': 'Sair com Caetano pra ler a linha da mata.',
+					'Do': 'jump Cap2_Dia_Caetano'
+				}
+			}
+		}
+	],
+
+	'Cap2_Dia_Malaquias': [
+		function () { return afinidade ('ogum', 1); },
+		function () { return setFlag ('diaComMalaquias', true); },
+		'narracao Passei o dia no vão do leste, apontando estaca e abrindo buraco. O Malaquias trabalha calado e cobra igual: no gesto, não no grito.',
+		'malaquias (endireitando uma estaca que eu tinha fincado) Estaca que entra torta, cai reta. O chão não perdoa pressa. Igual o ferro. Igual quase tudo, menino.',
+		'bento E se eles vierem antes da paliçada fechar?',
+		'malaquias Então ela fecha com a gente dentro do vão. (cospe no chão, medindo o horizonte) Paliçada não é pra impedir de entrar. É pra custar caro. Coisa que custa caro, homem pago pensa duas vezes.',
+		'narracao No fim da tarde, minhas mãos tinham bolha e a paliçada tinha vão fechado pela metade. O velho olhou o serviço e fez que sim, uma vez. Foi o maior elogio que eu recebi no ano.',
+		'jump Cap2_Cena3_Vigilia'
+	],
+
+	'Cap2_Dia_Caetano': [
+		function () { return afinidade ('oxossi', 1); },
+		function () { return setFlag ('diaComCaetano', true); },
+		'narracao Saí com o Caetano pra linha da mata. Ele me levou até a pedreira, onde o capim tinha deitado, e me fez agachar do lado dele até eu ver o que ele via: o desenho de um homem sentado, esperando, o tempo que três cigarros de corda levam pra morrer.',
+		'caetano Ficou aqui. Olhando. (aponta com o queixo) Daqui se vê a casa da Vó, o paiol e o vão do leste. Ele agora sabe o que a gente tem. Nós não sabemos o que ele tem. Essa é a conta a acertar.',
+		'bento E como se acerta?',
+		'caetano Sabendo mais que ele. (levanta; anda; eu sigo) Lugar se perde, menino. Gente não. Vou te mostrar a primeira rota. Decora com o pé, não com o olho — olho esquece no escuro, pé não.',
+		'narracao Ele me mostrou a trilha que desce pro corguinho por dentro da pedra, invisível de fora. "Semente não cai", ele disse no fim, como quem fecha reza. "Rola." Voltamos em silêncio. Eu vinha decorando o chão com a sola do pé.',
+		'jump Cap2_Cena3_Vigilia'
+	],
+
+	// ===========================================================
+	// CENA 3 — A VIGÍLIA (noite)
+	// ===========================================================
+	'Cap2_Cena3_Vigilia': [
+		// TODO-SPRITE: 'hide character malaquias with fadeOut',
+		// TODO-SPRITE: 'hide character caetano with fadeOut',
+		'show scene clareira_noite with fadeIn',
+		'play music tensao_silencio with loop fade 2',
+
+		'narracao A noite chegou com a vigília armada. O Malaquias dividiu os turnos como quem divide ração de guerra: sem sobra e sem falta.',
+
+		{
+			'Choice': {
+				'Dialog': 'bento (Meu nome não estava em turno nenhum. Ainda.)',
+				'Vigiar': {
+					'Text': 'Ficar de vigia.',
+					'Do': 'jump Cap2_Vigilia_Fica'
+				},
+				'Recolher': {
+					'Text': 'Recolher pra casa.',
+					'Do': 'jump Cap2_Vigilia_Recolhe'
+				}
+			}
+		}
+	],
+
+	'Cap2_Vigilia_Recolhe': [
+		function () { return setFlag ('naoVigiou', true); },
+		'show scene casa with fadeIn',
+
+		// A noite em casa muda conforme a escolha da Cena 4 do cap. 1
+		{
+			'Conditional': {
+				'Condition': function () {
+					return monogatari.storage ().flags.paiSabe === true;
+				},
+				'True': 'jump Cap2_Recolhe_PaiSabe',
+				'False': 'jump Cap2_Recolhe_PaiNaoSabe'
+			}
+		}
+	],
+
+	'Cap2_Recolhe_PaiSabe': [
+		// TODO-SPRITE: 'show character tiao neutro at center with fadeIn',
+		'narracao Em casa, meu pai estava acordado, reforçando a tranca da porta com um sarrafo novo. Não perguntei. Peguei o formão e segurei a madeira pra ele.',
+		'tiao (depois de um tempo, sem olhar) Segura firme.',
+		'narracao Trabalhamos calados até tarde, e foi a conversa mais comprida que a gente teve em anos. Tem família que se fala por palavra. A minha se fala por madeira.',
+		// TODO-SPRITE: 'hide character tiao with fadeOut',
+		'jump Cap2_Cena5_Banho'
+	],
+
+	'Cap2_Recolhe_PaiNaoSabe': [
+		// TODO-SPRITE: 'show character tiao neutro at center with fadeIn',
+		'narracao Em casa, meu pai dormia mal — dava pra ouvir na respiração, que parava e voltava, como quem escuta a casa no escuro. Eu fiquei olhando o teto.',
+		'narracao A minha omissão de ontem tinha virado um morador: não fazia barulho, mas ocupava lugar. Dormia entre a minha esteira e a dele. Ia crescer ali, se eu deixasse.',
+		// TODO-SPRITE: 'hide character tiao with fadeOut',
+		'jump Cap2_Cena5_Banho'
+	],
+
+	'Cap2_Vigilia_Fica': [
+		function () { return setFlag ('vigiaNoturna', true); },
+		'narracao Fiquei. O Malaquias me deu o posto do vão do leste sem comentário, que nele é confiança. A noite andou devagar, do jeito que noite de vigia anda: cada hora com o dobro dos minutos.',
+		'narracao Foi na metade do meu turno que ele flagrou o posto vazio da Firmina. Ela voltou da moita um minuto depois, os olhos ainda na escuridão — e ele já vinha em cima, baixo e duro, do jeito que a voz dele fica quando o Paraguai sobe.',
+		// TODO-SPRITE: 'show character malaquias tenso at left with fadeIn',
+		// TODO-SPRITE: 'show character firmina tenso at right with fadeIn',
+		'malaquias Posto vazio é buraco na parede. Por um buraco entra a noite inteira.',
+		'firmina Tinha barulho na moita, seu Malaquias. Eu fui —',
+		'malaquias Foi. Sozinha. Sem avisar. (pausa de ferro) No Paraguai isso tinha nome.',
+
+		{
+			'Choice': {
+				'Dialog': 'bento (Ela foi ver o barulho. Ele tem razão na regra. Os dois me olham.)',
+				'Defender': {
+					'Text': 'Defender Firmina.',
+					'Do': 'jump Cap2_Vigilia_Defende'
+				},
+				'Disciplina': {
+					'Text': 'Dar razão a Malaquias.',
+					'Do': 'jump Cap2_Vigilia_Disciplina'
+				},
+				'Calar': {
+					'Text': '(Ficar calado.)',
+					'Do': 'jump Cap2_Vigilia_Cala'
+				}
+			}
+		}
+	],
+
+	'Cap2_Vigilia_Defende': [
+		function () { return setFlag ('defendeuFirmina', true); },
+		'bento Ela foi ver o barulho, seu Malaquias. Isso não é descuido. É ouvido bom. O senhor não ia querer vigia que escuta barulho e fica parado.',
+		'narracao O velho me mediu por um tempo comprido.',
+		'malaquias Os dois no mesmo turno, então. Quem defende, acompanha.',
+		'narracao E foi embora. A Firmina não disse obrigada — ela nunca diz. Me deu um soco no ombro, que na língua dela é a mesma coisa, dita melhor.',
+		'jump Cap2_Vigilia_Agouro'
+	],
+
+	'Cap2_Vigilia_Disciplina': [
+		function () { return afinidade ('ogum', 1); },
+		function () { return setFlag ('apoiouDisciplina', true); },
+		'bento (pra ela, sem raiva) A regra existe pra noite ruim, Firmina. Avisar custava um assobio.',
+		'narracao Ela engoliu. O Malaquias assentiu uma vez, que nele é medalha. Mas a Firmina passou o resto do turno mais longe de mim do que a moita — e distância, nela, é resposta.',
+		'jump Cap2_Vigilia_Agouro'
+	],
+
+	'Cap2_Vigilia_Cala': [
+		function () { return afinidade ('exu', 1); },
+		function () { return setFlag ('absteveVigilia', true); },
+		'narracao Eu não tomei lado. Fiquei na fresta entre os dois, onde não chove — foi o que eu disse a mim mesmo.',
+		'narracao A Firmina me olhou uma vez, curta. Guardou. A Firmina guarda tudo.',
+		'jump Cap2_Vigilia_Agouro'
+	],
+
+	'Cap2_Vigilia_Agouro': [
+		// TODO-SPRITE: 'hide character malaquias with fadeOut',
+		// TODO-SPRITE: 'hide character firmina with fadeOut',
+		'narracao Já perto do fim do turno, a mata levantou passarinho. De noite. Um bando inteiro, de uma vez, na banda da pedreira — e passarinho não levanta de noite à toa. Alguma coisa andou por baixo deles. Alguma coisa que não quis ser vista.',
+		'narracao Eu não contei pra ninguém do turno. Guardei pra levar pra quem lê essas coisas.',
+		'jump Cap2_Cena4_Agouro'
+	],
+
+	// ===========================================================
+	// CENA 4 — O AGOURO E A VÓ (só na rota da vigília)
+	// ===========================================================
+	'Cap2_Cena4_Agouro': [
+		'show scene casa_damiana with fadeIn',
+		'play music memoria_xequere with loop fade 2',
+		// TODO-SPRITE: 'show character damiana neutro at center with fadeIn',
+
+		'narracao A Vó estava acordada, como se esperasse. Na frente dela, a peneira de búzios, coberta com um pano.',
+		'damiana Fala.',
+		'bento Passarinho levantou de noite, Vó. Na pedreira. O bando inteiro.',
+		'damiana (não olha os búzios; me olha) E tu veio me contar porque acha que eu falo com passarinho? (ri; a gravidade não sai do lugar) O que a mata mostra, ela mostra pra quem já tava olhando. Tu tava olhando pra quê, menino?',
+		'bento Eu... tava olhando pro escuro. Esperando ele ter nome.',
+		// TODO-SPRITE: 'show character damiana suave at center',
+		'damiana (pausa comprida; o riso vai embora) Hum. Isso os búzios vão gostar de saber. (cobre melhor a peneira, como quem agasalha) Amanhã eles falam. Hoje, dorme. O escuro já sabe teu nome faz tempo — agora ele sabe que tu quer saber o dele. Isso muda a conversa.',
+		'narracao Eu saí de lá sem entender e entendendo. Com a Vó é sempre assim: a resposta vem embrulhada na próxima pergunta.',
+		// TODO-SPRITE: 'hide character damiana with fadeOut',
+		'jump Cap2_Cena5_Banho'
+	],
+
+	// ===========================================================
+	// CENA 5 — O BANHO DE ERVAS (soft 5 — abre/adia o caminho)
+	// ===========================================================
+	'Cap2_Cena5_Banho': [
+		'show scene casa_damiana with fadeIn',
+		'play music memoria_xequere with loop fade 2',
+		// TODO-SPRITE: 'show character damiana neutro at center with fadeIn',
+
+		'narracao De tarde, como prometido, a Vó aprontou a gamela. Folha macerada na água, cheiro que era verde e era fundo ao mesmo tempo. Luzia tomou o dela de olhos fechados, e quando saiu, tinha alguma coisa a menos nos ombros. Não sei o nome do que saiu. Mas vi sair.',
+		'damiana (me estendendo a cuia, sem cerimônia nenhuma — e isso era a cerimônia) Teu susto de ontem ainda tá em ti. Susto guardado azeda, igual leite.',
+		'damiana Não é reza que eu tô te dando, menino. É folha e é água. O resto, se tiver que vir, vem no tempo.',
+
+		{
+			'Choice': {
+				'Dialog': 'bento (A cuia na mão dela. A porta aberta. Ninguém empurrando.)',
+				'Aceitar': {
+					'Text': 'Aceitar o banho.',
+					'Do': 'jump Cap2_Banho_Aceita'
+				},
+				'Adiar': {
+					'Text': 'Depois, Vó. Agora não.',
+					'Do': 'jump Cap2_Banho_Adia'
+				}
+			}
+		}
+	],
+
+	'Cap2_Banho_Aceita': [
+		function () { return setFlag ('banhoAceito', true); },
+		'narracao A água era fria e depois não era. Desceu pelo pescoço carregando o que eu não sabia que segurava — a noite da chegada, o grito que eu dei ou não dei, o cheiro de sangue na clareira.',
+		'narracao Não virei outro. Mas fiquei mais perto de mim. Quando terminou, a Vó não disse nada. Só recolheu a cuia com um respeito que me ensinou, sem palavra, que aquilo tinha sido maior do que parecia.',
+		'jump Cap2_Cena6_Coda'
+	],
+
+	'Cap2_Banho_Adia': [
+		function () { return setFlag ('banhoAdiado', true); },
+		'bento Depois, Vó. Agora não.',
+		'damiana (sem ofensa nenhuma; guarda a cuia) "Depois", ele disse. (ri baixinho) A água não tem pressa, menino. Quem tem pressa é a estrada. Tomara que as duas não se encontrem antes de ti.',
+		'narracao A Firmina teria dito que "depois não existe". Eu ouvi a voz dela na minha cabeça e fingi que não.',
+		'jump Cap2_Cena6_Coda'
+	],
+
+	// ===========================================================
+	// CODA — O AVISO + O PRIMEIRO SONHO
+	// ===========================================================
+	'Cap2_Cena6_Coda': [
+		// TODO-SPRITE: 'hide character damiana with fadeOut',
+		'show scene casa with fadeIn',
+		'play music tensao_silencio with loop fade 2',
+		// TODO-SPRITE: 'show character caetano tenso at center with fadeIn',
+
+		'narracao O aviso chegou com o Caetano, na boca da noite, e ele nem desmontou o passo: falou andando, que é como ele fala quando a notícia não pode sentar.',
+		'caetano Papel pregado no posto da vila. Recompensa. (pausa; escolhe não olhar pra Luzia, o que é o mesmo que olhar) "Fugida da Boa Vista." Tem nome, tem sinal, tem preço.',
+		'malaquias (a voz de guerra, baixa) Então acabou a dúvida. Não é se vêm. É quando.',
+		'narracao Ninguém disse mais nada. Não precisava. Meu pai apagou o fogo mais cedo. A Vó, na porta dela, olhou o céu por um tempo comprido — e depois olhou pra mim, do outro lado do terreiro, como se o céu e eu fôssemos a mesma pergunta.',
+		'damiana (pra todos e pra ninguém) Amanhã cedo eu jogo. Os búzios não gostam de pressa... mas gostam menos de atraso.',
+		// TODO-SPRITE: 'hide character caetano with fadeOut',
+		'narracao Naquela noite eu dormi. O corpo venceu. E aí veio o sonho.',
+
+		'show scene #000000 with fadeIn 2',
+		'play music memoria_xequere with loop fade 3',
+
+		// Primeiro feedback diegético de afinidade (ramificações §7):
+		// o sonho reflete o orixá dominante. Empate = ramo equilibrado
+		// (semente do final oculto). Nunca exibe número.
+		{
+			'Conditional': {
+				'Condition': function () {
+					const a = monogatari.storage ().afinidade;
+					const pares = Object.entries (a);
+					const maior = Math.max (...pares.map (function (p) { return p[1]; }));
+					const dominantes = pares.filter (function (p) { return p[1] === maior; });
+					return dominantes.length === 1 ? dominantes[0][0] : 'equilibrado';
+				},
+				'ogum': 'jump Cap2_Sonho_Ogum',
+				'oxossi': 'jump Cap2_Sonho_Oxossi',
+				'iemanja': 'jump Cap2_Sonho_Iemanja',
+				'exu': 'jump Cap2_Sonho_Exu',
+				'equilibrado': 'jump Cap2_Sonho_Equilibrado'
+			}
+		}
+	],
+
+	'Cap2_Sonho_Ogum': [
+		'narracao Sonhei com a forja. Mas a forja era do tamanho da noite, e o ferro na bigorna era comprido demais pra ser enxada.',
+		'narracao Cada martelada acendia uma faísca verde que subia e virava estrela. Alguém batia junto comigo, no mesmo ritmo — não vi o rosto. Só o braço, que era como o meu, mas mais velho. O ferro nunca esfriava.',
+		'narracao Acordei com as mãos fechadas.',
+		'jump Cap2_Fim'
+	],
+
+	'Cap2_Sonho_Oxossi': [
+		'narracao Sonhei com a mata. Ela se abria na minha frente sem eu pedir — trilha atrás de trilha, cada uma sabendo meu passo antes de mim. Um verde-azul de folha nova em tudo.',
+		'narracao No fundo, uma flecha só atravessou o sonho inteiro, de ponta a ponta, sem cair. Eu sabia, do jeito que se sabe em sonho, que ela não ia cair nunca.',
+		'narracao Acordei com os pés inquietos.',
+		'jump Cap2_Fim'
+	],
+
+	'Cap2_Sonho_Iemanja': [
+		'narracao Sonhei com uma água que eu nunca vi — grande demais pra ser rio, funda demais pra ter margem. Azul-claro até dentro.',
+		'narracao Tinha uma voz nela, embaixo, cantando uma coisa sem palavra que mesmo assim eu entendia: corre, meu rio, que eu te espero no fim.',
+		'narracao Acordei com o rosto molhado e não contei pra ninguém.',
+		'jump Cap2_Fim'
+	],
+
+	'Cap2_Sonho_Exu': [
+		'narracao Sonhei com uma encruzilhada de noite, quatro caminhos e nenhuma placa. No meio dela, uma fogueira pequena, vermelha no preto.',
+		'narracao Cada caminho que eu olhava se acendia; quando eu olhava outro, o primeiro não apagava. No fim os quatro estavam acesos e eu ainda no meio — e uma risada em algum lugar, que não ria de mim. Ria comigo.',
+		'narracao Acordei sem saber se tinha escolhido ou se tinha ficado. E de algum jeito isso não era ruim.',
+		'jump Cap2_Fim'
+	],
+
+	'Cap2_Sonho_Equilibrado': [
+		'narracao Sonhei com os quatro ao mesmo tempo: a forja dentro da mata, a mata bebendo na água, a água correndo pra encruzilhada. Nenhuma cor venceu.',
+		'narracao Eu fiquei parado no meio e, em vez de eu andar pros caminhos, foram os caminhos que andaram pra mim — devagar, sem briga, como quem chega pra roda.',
+		'narracao Acordei sem pressa. Foi a primeira vez, desde a chegada dela, que acordar não doeu.',
+		'jump Cap2_Fim'
+	],
+
+	'Cap2_Fim': [
+		'narracao Lá fora, o galo preguiçoso cantou atrasado. Mas cantou. Amanhã os búzios falam. E depois de amanhã — depois de amanhã a estrada responde.',
+		'show scene #000000 with fadeIn 3',
+		'centered CAPÍTULO 2 — FIM',
 		'end'
 	]
 
