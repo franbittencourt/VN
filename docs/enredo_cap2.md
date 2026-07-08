@@ -2,7 +2,7 @@
 
 > **Estágio:** este é o *enredo* (tratamento cena a cena), o passo anterior à prosa anotada (como `roteiro_piloto_cap1.md`) e à implementação em `game/js/script.js`. Serve para travar a estrutura contra o mapa antes de escrever o texto final.
 >
-> **Título provisório:** **"O Que a Água Lava"** — o banho de ervas é o coração do capítulo, e a ironia é que a água limpa o corpo e o espírito, mas não lava o que vem pela estrada. *(Alternativas: "As Mãos que Curam" · "O Que Não Seca" · "O Nome Antes dos Búzios".)*
+> **Título definido:** **"O Que Não Seca"** — a água do banho lava o susto, mas o que a estrada traz não seca; e a memória (de Luzia, do Tião, do próprio quilombo) também não. *(Decisão registrada — ver §8.)*
 
 ---
 
@@ -146,11 +146,11 @@ banhoAceito, banhoAdiado                             // Cena 5
 
 ---
 
-## 8. Decisões abertas (preciso de você antes da prosa)
+## 8. Decisões tomadas (registradas em 2026-07-08)
 
-1. **Título do capítulo:** fico com "O Que a Água Lava" ou prefere uma das alternativas?
-2. **Quem é o "amigo acusado na vigia":** proponho a **Firmina** (casa com a soft 4 "relação com o aliado da mesma geração" e com a voz dela de quem investiga). Confirma?
-3. **Mecânica do sonho na coda:** introduzir já no cap. 2 o *feedback diegético de afinidade* via sonho? Acho que é o lugar perfeito para estrear, mas é uma decisão de design que ecoa por todo o jogo.
-4. **Densidade:** manter ~4 escolhas (como o cap. 1) ou adensar? O esboço acima tem 4 principais + 1 aninhada (3b).
+1. **Título:** "O Que Não Seca". ✅
+2. **Acusada na vigia:** Firmina (soft 4). ✅
+3. **Sonho de afinidade:** estreia na coda do cap. 2 — via `Conditional` do Monogatari (a `Condition` retorna o orixá dominante ou `equilibrado`; empate = ramo equilibrado, semente do final oculto). ✅
+4. **Densidade:** 4–5 escolhas — ficam 4 principais + 1 aninhada (3b, só para quem vigia). ✅
 
-Depois que você reagir a esses pontos, sigo para a **prosa anotada** (formato `roteiro_piloto_cap1.md`) e, na sequência, a implementação em `script.js` com as flags novas em `storage.js`.
+Próximos artefatos: `docs/roteiro_cap2.md` (prosa anotada) → implementação em `game/js/script.js` + flags novas em `game/js/storage.js`.
